@@ -10,13 +10,13 @@ enteredScale = enteredScale.lower()
 tempString = ""
 scaleWithoutSpaces = []
 for char in enteredScale:
-    if char == " " and tempString != "":
+    if (char == " " and tempString != ""):
         scaleWithoutSpaces.append(tempString)
         tempString = ""
     else:
         tempString += char
 scaleWithoutSpaces.append(tempString)
-print(scaleWithoutSpaces)
+#print(scaleWithoutSpaces)
 
 #checking if the scale note enetered matches
 for i in range(12):
@@ -47,8 +47,8 @@ for i in range(7):
     if (scaleRootIndex > 11):
         scaleRootIndex -= 12
 
-print (scaleNotes)
-print (scaleNotesIndex)
+#print (scaleNotes)
+#print (scaleNotesIndex)
 
 #generating chord notes indexes
 chord = []
@@ -56,14 +56,14 @@ chordsIndexes = []
 for i in range(7):
     counter = i
     chord = []
-    for n in range(3):
+    for n in range(4):
         chord.append(scaleNotesIndex[counter])
         counter += 2
         if counter > 6:
             counter -= 7
     chordsIndexes.append(chord)
 
-print(chordsIndexes)
+#print(chordsIndexes)
 
 #calculating spacing between notes
 numberOfNotes = len(chordsIndexes[0])
@@ -81,22 +81,41 @@ for i in range(7):
         singleChordSpacing.append(singleSpacing)
     spacing.append(singleChordSpacing)
 
-print(spacing)
+#print(spacing)
+
+#print("Chord note: " + sharpNotes[chordsIndexes[0][0]].upper() + " " + sharpNotes[chordsIndexes[0][1]].upper() + " " + sharpNotes[chordsIndexes[0][2]].upper())
 
 #matching spacing to a chord
-def matchChord(funcSpacing):
-    chordType = ""
+def matchChord(funcSpacing, counter, only3notechords):
+    chordNotes = sharpNotes[chordsIndexes[counter][0]].upper() + " " + sharpNotes[chordsIndexes[counter][1]].upper() + " " + sharpNotes[chordsIndexes[counter][2]].upper() + " "
     if (funcSpacing[0] == 3):
         if (funcSpacing[1] == 6):
             chordType = "dim"
         elif (funcSpacing[1] == 7):
             chordType = "min"
+        if(len(funcSpacing) == 3 and only3notechords == "false"):
+            if(funcSpacing[2] == 10):
+                chordType += "7"
+            elif(funcSpacing[2] == 11):
+                chordType += "(maj7)"
+
     if (funcSpacing[0] == 4):
         if (spacing[1] == 6):
             chordType = "b5"
         elif (funcSpacing[1] == 7):
             chordType = "maj "
-    return chordType
+        if(len(funcSpacing) == 3 and only3notechords == "false"):
+            if(funcSpacing[2] == 10):
+                chordType = "7"
+            elif(funcSpacing[2] == 11):
+                chordType = "maj7"
+    chord = sharpNotes[chordsIndexes[counter][0]].upper() + " " + chordType + " - " + chordNotes
+    return chord
 
+print("Basic chords in " + enteredScale.upper() +": ")
 for i in range(7):
-    print(scaleNotes[i], matchChord(spacing[i]))
+    print(matchChord(spacing[i], i, "true"))
+
+print("\n7th chords in " + enteredScale.upper() +": ")
+for i in range(7):
+    print(matchChord(spacing[i], i, "false"))
