@@ -16,7 +16,6 @@ for char in enteredScale:
     else:
         tempString += char
 scaleWithoutSpaces.append(tempString)
-#print(scaleWithoutSpaces)
 
 #checking if the scale note enetered matches
 for i in range(12):
@@ -47,9 +46,6 @@ for i in range(7):
     if (scaleRootIndex > 11):
         scaleRootIndex -= 12
 
-#print (scaleNotes)
-#print (scaleNotesIndex)
-
 #generating chord notes indexes
 chord = []
 chordsIndexes = []
@@ -62,8 +58,6 @@ for i in range(7):
         if counter > 6:
             counter -= 7
     chordsIndexes.append(chord)
-
-#print(chordsIndexes)
 
 #calculating spacing between notes
 numberOfNotes = len(chordsIndexes[0])
@@ -80,11 +74,7 @@ for i in range(7):
             singleSpacing+= 12
         singleChordSpacing.append(singleSpacing)
     spacing.append(singleChordSpacing)
-
-#print(spacing)
-
-#print("Chord note: " + sharpNotes[chordsIndexes[0][0]].upper() + " " + sharpNotes[chordsIndexes[0][1]].upper() + " " + sharpNotes[chordsIndexes[0][2]].upper())
-
+    
 #matching spacing to a chord
 def matchChord(funcSpacing, counter, only3notechords):
     chordNotes = sharpNotes[chordsIndexes[counter][0]].upper() + " " + sharpNotes[chordsIndexes[counter][1]].upper() + " " + sharpNotes[chordsIndexes[counter][2]].upper() + " "
